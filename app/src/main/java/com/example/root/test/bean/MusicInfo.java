@@ -227,6 +227,21 @@ public class MusicInfo {
             this.artists = artists;
         }
 
+        @Override
+        public String toString() {
+            return "AlbumsBean{" +
+                    "available=" + available +
+                    ", company='" + company + '\'' +
+                    ", cover='" + cover + '\'' +
+                    ", id=" + id +
+                    ", name='" + name + '\'' +
+                    ", num_tracks=" + num_tracks +
+                    ", release_date='" + release_date + '\'' +
+                    ", type='" + type + '\'' +
+                    ", artists=" + artists +
+                    '}';
+        }
+
         public static class ArtistsBean {
             /**
              * id : 50000671
@@ -270,6 +285,16 @@ public class MusicInfo {
 
             public void setValid(boolean valid) {
                 this.valid = valid;
+            }
+
+            @Override
+            public String toString() {
+                return "ArtistsBean{" +
+                        "id=" + id +
+                        ", name='" + name + '\'' +
+                        ", portrait='" + portrait + '\'' +
+                        ", valid=" + valid +
+                        '}';
             }
         }
     }
@@ -337,6 +362,18 @@ public class MusicInfo {
 
         public void setValid(boolean valid) {
             this.valid = valid;
+        }
+
+        @Override
+        public String toString() {
+            return "ArtistsBeanX{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    ", num_albums=" + num_albums +
+                    ", num_tracks=" + num_tracks +
+                    ", portrait='" + portrait + '\'' +
+                    ", valid=" + valid +
+                    '}';
         }
     }
 
@@ -489,6 +526,15 @@ public class MusicInfo {
             public void setName(String name) {
                 this.name = name;
             }
+
+            @Override
+            public String toString() {
+                return "AlbumBean{" +
+                        "cover='" + cover + '\'' +
+                        ", id=" + id +
+                        ", name='" + name + '\'' +
+                        '}';
+            }
         }
 
         public static class ArtistsBeanXX {
@@ -555,6 +601,18 @@ public class MusicInfo {
             public void setValid(boolean valid) {
                 this.valid = valid;
             }
+
+            @Override
+            public String toString() {
+                return "ArtistsBeanXX{" +
+                        "id=" + id +
+                        ", name='" + name + '\'' +
+                        ", num_albums=" + num_albums +
+                        ", num_tracks=" + num_tracks +
+                        ", portrait='" + portrait + '\'' +
+                        ", valid=" + valid +
+                        '}';
+            }
         }
 
         public static class MediasBean {
@@ -581,6 +639,49 @@ public class MusicInfo {
             public void setP2purl(String p2purl) {
                 this.p2purl = p2purl;
             }
+
+            @Override
+            public String toString() {
+                return "MediasBean{" +
+                        "bitrate=" + bitrate +
+                        ", p2purl='" + p2purl + '\'' +
+                        '}';
+            }
         }
+
+        @Override
+        public String toString() {
+            return "TracksBean{" +
+                    "album=" + album +
+                    ", availability='" + availability + '\'' +
+                    ", dlyric='" + dlyric + '\'' +
+                    ", id=" + id +
+                    ", mv=" + mv +
+                    ", slyric='" + slyric + '\'' +
+                    ", title='" + title + '\'' +
+                    ", isdown='" + isdown + '\'' +
+                    ", isplay='" + isplay + '\'' +
+                    ", artists=" + artists +
+                    ", medias=" + medias +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "MusicInfo{" +
+                "album_offset=" + album_offset +
+                ", artist_offset=" + artist_offset +
+                ", dm_error=" + dm_error +
+                ", error_msg='" + error_msg + '\'' +
+                ", recommend=" + recommend +
+                ", total_albums=" + total_albums +
+                ", total_artists=" + total_artists +
+                ", total_tracks=" + total_tracks +
+                ", track_offset=" + track_offset +
+                ", albums=" + albums +
+                ", artists=" + artists +
+                ", tracks=" + tracks +
+                '}';
     }
 }

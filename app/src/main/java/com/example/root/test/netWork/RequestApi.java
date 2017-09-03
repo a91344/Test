@@ -1,6 +1,7 @@
 package com.example.root.test.netWork;
 
 
+import com.example.root.test.bean.ExpressInfo;
 import com.example.root.test.bean.MusicInfo;
 
 import retrofit2.http.GET;
@@ -17,6 +18,8 @@ import rx.Observable;
 
 public interface RequestApi {
     @GET("search-ajaxsearch-searchall")
-    Observable<MusicInfo> requesetMusicInfos(@Query("kw") String name, @Query("pi") String pageNo, @Query("pz") String pageSize);
+    Observable<MusicInfo> requestMusicInfos(@Query("kw") String name, @Query("pi") String pageNo, @Query("pz") String pageSize);
 
+    @GET("query")
+    Observable<ExpressInfo> requestExpressInfo(@Query("type") String type, @Query("postid") String postid);
 }
