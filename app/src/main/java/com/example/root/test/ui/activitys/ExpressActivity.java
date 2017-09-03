@@ -1,10 +1,12 @@
 package com.example.root.test.ui.activitys;
 
-import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,16 +15,20 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-import com.example.root.test.BaseView;
 import com.example.root.test.R;
 import com.example.root.test.bean.ExpressInfo;
 import com.example.root.test.constant.Constants;
 import com.example.root.test.contract.ExpressContract;
 import com.example.root.test.presenter.ExpressPresenter;
 import com.example.root.test.ui.adapter.ExpressAdapter;
+import com.qmuiteam.qmui.widget.QMUIEmptyView;
+import com.qmuiteam.qmui.widget.QMUILoadingView;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,15 +40,15 @@ import java.util.List;
 public class ExpressActivity extends AppCompatActivity implements ExpressContract.View {
     private EditText mExpEtSearch;
     private Button mExpBtSearch;
-    private Spinner mExpSpType;
+    private TextView mExpTvType;
     private ListView mExpLvData;
-    private LinearLayout mEmptyLl;
-    private TextView mEmptyTvContent;
+    private QMUIEmptyView mExpEv;
     private ExpressContract.Presenter expressPresenter;
     private List<ExpressInfo.DataBean> datas;
     private ExpressAdapter expressAdapter;
     private String type;
-    private ProgressDialog progressDialog;
+    private QMUITipDialog qmuiTipDialog;
+    private QMUIDialog qmuiDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,39 +62,45 @@ public class ExpressActivity extends AppCompatActivity implements ExpressContrac
     private void initView() {
         mExpEtSearch = (EditText) findViewById(R.id.exp_et_search);
         mExpBtSearch = (Button) findViewById(R.id.exp_bt_search);
-        mExpSpType = (Spinner) findViewById(R.id.exp_sp_type);
+        mExpTvType = (TextView) findViewById(R.id.exp_tv_type);
         mExpLvData = (ListView) findViewById(R.id.exp_lv_data);
 
-        mEmptyLl = (LinearLayout) findViewById(R.id.empty_ll);
-        mEmptyTvContent = (TextView) findViewById(R.id.empty_tv_content);
+        mExpEv = (QMUIEmptyView) findViewById(R.id.exp_ev);
     }
 
     private void initData() {
         ExpressPresenter expressPresenter = new ExpressPresenter(this);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("加载中...");
 
+        QMUITipDialog.Builder builder = new QMUITipDialog.Builder(this);
+        builder.setTipWord("正在加载");
+        builder.setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING);
+        qmuiTipDialog = builder.create();
+
+        QMUIDialog.CheckableDialogBuilder checkableDialogBuilder = new QMUIDialog.CheckableDialogBuilder(this);
+        checkableDialogBuilder.addItems(Constants.EXPRESS_NAME_TYPES, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                type = Constants.EXPRESS_TYPES[i];
+                mExpTvType.setText(Constants.EXPRESS_NAME_TYPES[i]);
+                qmuiDialog.dismiss();
+                qmuiDialog.hide();
+            }
+        });
+        qmuiDialog = checkableDialogBuilder.create();
+        setEmptyContentStatus(0);
         datas = new ArrayList<>();
         expressAdapter = new ExpressAdapter(this, datas);
         mExpLvData.setAdapter(expressAdapter);
-        mExpLvData.setEmptyView(mEmptyLl);
-        mExpSpType.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, Constants.EXPRESS_NAME_TYPES));
-        setEmptyContentStatus(0);
+        mExpLvData.setEmptyView(mExpEv);
     }
 
     private void initEvent() {
-        mExpSpType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mExpTvType.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                type = Constants.EXPRESS_TYPES[i];
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
+            public void onClick(View view) {
+                qmuiDialog.show();
             }
         });
-
         mExpBtSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,25 +124,26 @@ public class ExpressActivity extends AppCompatActivity implements ExpressContrac
 
     @Override
     public void setEmptyContentStatus(int type) {
+        mExpEv.show();
         switch (type) {
             case 0:
-                mEmptyTvContent.setText("暂无数据");
+                mExpEv.setDetailText("什么都没有");
                 break;
             case 1:
-                mEmptyTvContent.setText("输入订单有误,或者无效。");
+                mExpEv.setDetailText("输入订单有误,或者无效.");
                 break;
         }
-        expressAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void hideProgressDialog() {
-        progressDialog.dismiss();
-        progressDialog.hide();
+        qmuiTipDialog.dismiss();
+        qmuiTipDialog.hide();
     }
 
     @Override
     public void showProgressDialog() {
-        progressDialog.show();
+        mExpEv.hide();
+        qmuiTipDialog.show();
     }
 }
