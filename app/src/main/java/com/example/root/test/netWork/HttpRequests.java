@@ -1,7 +1,9 @@
 package com.example.root.test.netWork;
 
 import com.example.root.test.bean.ExpressInfo;
+import com.example.root.test.bean.LocationInfo;
 import com.example.root.test.bean.MusicInfo;
+import com.example.root.test.bean.WeatherInfo;
 import com.example.root.test.constant.Constants;
 
 import java.util.concurrent.TimeUnit;
@@ -22,8 +24,10 @@ public class HttpRequests {
     private final RequestApi requestApi;
 
     public static class SingletonHolder {
-        private static final HttpRequests INSTANCE_MUSIC = new HttpRequests(0);
-        private static final HttpRequests INSTANCE_EXPRESS = new HttpRequests(1);
+        private static final HttpRequests INSTANCE_MUSIC = new HttpRequests(Constants.BASE_MUSIC_URL);
+        private static final HttpRequests INSTANCE_EXPRESS = new HttpRequests(Constants.BASE_EXPRESS_URL);
+        private static final HttpRequests INSTANCE_LOCATION = new HttpRequests(Constants.BASE_LOCATION_URL);
+        private static final HttpRequests INSTANCE_WEATHER = new HttpRequests(Constants.BASE_WEATHER_URL);
 
         public static HttpRequests getInstanceMusic() {
             return SingletonHolder.INSTANCE_MUSIC;
@@ -32,18 +36,17 @@ public class HttpRequests {
         public static HttpRequests getInstanceExpress() {
             return SingletonHolder.INSTANCE_EXPRESS;
         }
+
+        public static HttpRequests getInstanceLocation() {
+            return SingletonHolder.INSTANCE_LOCATION;
+        }
+
+        public static HttpRequests getInstanceWeather() {
+            return SingletonHolder.INSTANCE_WEATHER;
+        }
     }
 
-    private HttpRequests(int type) {
-        String url = "";
-        switch (type) {
-            case 0:
-                url = Constants.BASE_MUSIC_URL;
-                break;
-            case 1:
-                url = Constants.BASE_EXPRESS_URL;
-                break;
-        }
+    private HttpRequests(String url) {
         OkHttpClient httpClient = new OkHttpClient.Builder().connectTimeout(Constants.CONNECT_TIME_OUT, TimeUnit.SECONDS).build();
         Retrofit build = new Retrofit.Builder().baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -65,5 +68,19 @@ public class HttpRequests {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(expressInfoSubscriber);
+    }
+
+    public void requestLocation(Subscriber<LocationInfo> locationInfoSubscriber, String location) {
+        requestApi.requestLocation("json", location, "esNPFDwwsXWtsQfw4NMNmur1")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(locationInfoSubscriber);
+    }
+
+    public void requesetWeather(Subscriber<WeatherInfo> weatherInfoSubscriber, String city) {
+        requestApi.requestWeather(city)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(weatherInfoSubscriber);
     }
 }

@@ -20,12 +20,12 @@ import java.util.List;
 public class ExpressAdapter extends BaseAdapter {
     private Context mContext;
     private List<ExpressInfo.DataBean> datas;
-    private LayoutInflater layoutInflater;
+    private LayoutInflater inflater;
 
     public ExpressAdapter(Context mContext, List<ExpressInfo.DataBean> datas) {
         this.mContext = mContext;
         this.datas = datas;
-        this.layoutInflater = LayoutInflater.from(mContext);
+        this.inflater = LayoutInflater.from(mContext);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ExpressAdapter extends BaseAdapter {
         View v = view;
         ViewHolder holder;
         if (v == null) {
-            v = layoutInflater.inflate(R.layout.item_express, viewGroup, false);
+            v = inflater.inflate(R.layout.item_express, viewGroup, false);
             holder = new ViewHolder(v);
             v.setTag(holder);
         } else {
