@@ -62,6 +62,17 @@ public class WeatherInfo {
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return "WeatherInfo{" +
+                "message='" + message + '\'' +
+                ", status=" + status +
+                ", city='" + city + '\'' +
+                ", count=" + count +
+                ", data=" + data +
+                '}';
+    }
+
     public static class DataBean {
         /**
          * shidu : 68%
@@ -145,6 +156,20 @@ public class WeatherInfo {
 
         public void setForecast(List<ForecastBean> forecast) {
             this.forecast = forecast;
+        }
+
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "shidu='" + shidu + '\'' +
+                    ", pm25=" + pm25 +
+                    ", pm10=" + pm10 +
+                    ", quality='" + quality + '\'' +
+                    ", wendu='" + wendu + '\'' +
+                    ", ganmao='" + ganmao + '\'' +
+                    ", yesterday=" + yesterday +
+                    ", forecast=" + forecast +
+                    '}';
         }
 
         public static class YesterdayBean extends ForecastBean{
@@ -254,6 +279,22 @@ public class WeatherInfo {
 
             public void setNotice(String notice) {
                 this.notice = notice;
+            }
+
+            @Override
+            public String toString() {
+                return "ForecastBean{" +
+                        "date='" + date + '\'' +
+                        ", sunrise='" + sunrise + '\'' +
+                        ", high='" + high + '\'' +
+                        ", low='" + low + '\'' +
+                        ", sunset='" + sunset + '\'' +
+                        ", aqi=" + aqi +
+                        ", fx='" + fx + '\'' +
+                        ", fl='" + fl + '\'' +
+                        ", type='" + type + '\'' +
+                        ", notice='" + notice + '\'' +
+                        '}';
             }
         }
     }

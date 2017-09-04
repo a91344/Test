@@ -15,6 +15,10 @@ public interface WeatherContract {
         void showWeather(List<WeatherInfo.DataBean.ForecastBean> datas);
 
         void showCurrentWeather(WeatherInfo.DataBean dataBean);
+
+        void hideProgressDialog();
+
+        void showProgressDialog();
     }
 
     interface Presenter extends BasePresenter {

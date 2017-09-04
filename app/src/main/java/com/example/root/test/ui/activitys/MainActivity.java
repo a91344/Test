@@ -1,21 +1,13 @@
-package com.example.root.test;
+package com.example.root.test.ui.activitys;
 
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.root.test.R;
-import com.example.root.test.bean.ExpressInfo;
-import com.example.root.test.bean.MusicInfo;
-import com.example.root.test.netWork.HttpRequests;
-import com.example.root.test.ui.activitys.ExpressActivity;
-import com.example.root.test.ui.activitys.WeatherActivity;
-
-import rx.Subscriber;
 
 public class MainActivity extends AppCompatActivity {
     private ImageView mMainIvExp;
@@ -36,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
-
+//        Intent locationIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//        startActivity(locationIntent);
     }
 
     private void initEvent() {

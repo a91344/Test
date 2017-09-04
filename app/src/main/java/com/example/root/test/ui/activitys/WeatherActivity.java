@@ -14,6 +14,7 @@ import com.example.root.test.bean.WeatherInfo;
 import com.example.root.test.contract.WeatherContract;
 import com.example.root.test.presenter.WeatherPresenter;
 import com.example.root.test.ui.adapter.WeatherAdapter;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherContrac
     private WeatherContract.Presenter presenter;
     private List<WeatherInfo.DataBean.ForecastBean> datas;
     private WeatherAdapter weatherAdapter;
+    private QMUITipDialog qmuiTipDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +61,11 @@ public class WeatherActivity extends AppCompatActivity implements WeatherContrac
         datas = new ArrayList<>();
         weatherAdapter = new WeatherAdapter(this, datas);
         weaLvDatas.setAdapter(weatherAdapter);
+
+        QMUITipDialog.Builder builder = new QMUITipDialog.Builder(this);
+        builder.setTipWord("正在加载");
+        builder.setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING);
+        qmuiTipDialog = builder.create();
 
         presenter.start();
     }
@@ -88,5 +95,16 @@ public class WeatherActivity extends AppCompatActivity implements WeatherContrac
         weaTvPm.setText(String.format("PM2.5:%s\nPM1.0:%s", dataBean.getPm25(), dataBean.getPm10()));
         weaTvHumidity.setText(String.format("湿度:%s", dataBean.getShidu()));
         weaTvNotice.setText(String.format("提示:%s", dataBean.getGanmao()));
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        qmuiTipDialog.dismiss();
+        qmuiTipDialog.hide();
+    }
+
+    @Override
+    public void showProgressDialog() {
+        qmuiTipDialog.show();
     }
 }

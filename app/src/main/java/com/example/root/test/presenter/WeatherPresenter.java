@@ -1,5 +1,8 @@
 package com.example.root.test.presenter;
 
+import android.os.Handler;
+import android.util.Log;
+
 import com.example.root.test.MyApp;
 import com.example.root.test.bean.WeatherInfo;
 import com.example.root.test.contract.WeatherContract;
@@ -26,22 +29,40 @@ public class WeatherPresenter implements WeatherContract.Presenter {
     public void start() {
         HttpRequests.SingletonHolder.getInstanceWeather().requesetWeather(new Subscriber<WeatherInfo>() {
             @Override
+            public void onStart() {
+                super.onStart();
+                weatherContractView.showProgressDialog();
+            }
+
+            @Override
             public void onCompleted() {
 
             }
 
             @Override
             public void onError(Throwable e) {
-
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        weatherContractView.hideProgressDialog();
+                    }
+                }, 1000);
             }
 
             @Override
-            public void onNext(WeatherInfo weatherInfo) {
-                List<WeatherInfo.DataBean.ForecastBean> forecast = new ArrayList<>();
-                forecast.add(weatherInfo.getData().getYesterday());
-                forecast.addAll(weatherInfo.getData().getForecast());
-                weatherContractView.showWeather(forecast);
-                weatherContractView.showCurrentWeather(weatherInfo.getData());
+            public void onNext(final WeatherInfo weatherInfo) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        weatherContractView.hideProgressDialog();
+                        Log.i("AAA", "onNext: " + weatherInfo.toString());
+                        List<WeatherInfo.DataBean.ForecastBean> forecast = new ArrayList<>();
+                        forecast.add(weatherInfo.getData().getYesterday());
+                        forecast.addAll(weatherInfo.getData().getForecast());
+                        weatherContractView.showWeather(forecast);
+                        weatherContractView.showCurrentWeather(weatherInfo.getData());
+                    }
+                }, 1000);
             }
         }, MyApp.getCity());
     }
