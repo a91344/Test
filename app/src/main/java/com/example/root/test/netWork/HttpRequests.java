@@ -1,6 +1,7 @@
 package com.example.root.test.netWork;
 
 import com.example.root.test.bean.ExpressInfo;
+import com.example.root.test.bean.CityInfo;
 import com.example.root.test.bean.LocationInfo;
 import com.example.root.test.bean.MusicInfo;
 import com.example.root.test.bean.WeatherInfo;
@@ -41,6 +42,7 @@ public class HttpRequests {
             return SingletonHolder.INSTANCE_LOCATION;
         }
 
+
         public static HttpRequests getInstanceWeather() {
             return SingletonHolder.INSTANCE_WEATHER;
         }
@@ -70,8 +72,8 @@ public class HttpRequests {
                 .subscribe(expressInfoSubscriber);
     }
 
-    public void requestLocation(Subscriber<LocationInfo> locationInfoSubscriber, String location) {
-        requestApi.requestLocation("json", location, "esNPFDwwsXWtsQfw4NMNmur1")
+    public void requestLocation(Subscriber<LocationInfo> locationInfoSubscriber) {
+        requestApi.requestLocation("zh-CN")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(locationInfoSubscriber);

@@ -17,7 +17,7 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = getApplicationContext();
-        LocationUtils locationUtil = new LocationUtils();
+        LocationUtils.requestCity();
     }
 
     public static String getCity() {
