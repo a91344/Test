@@ -66,8 +66,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherContrac
         builder.setTipWord("正在加载");
         builder.setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING);
         qmuiTipDialog = builder.create();
-
-        presenter.start();
+            presenter.start();
     }
 
     private void initEvent() {

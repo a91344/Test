@@ -24,7 +24,11 @@ public class LocationUtils {
 
             @Override
             public void onNext(LocationInfo locationInfo) {
-                MyApp.setCity(locationInfo.getCity());
+                if (!MyApp.getCity().equals(locationInfo.getCity())) {
+                    MyApp.setCity(locationInfo.getCity());
+                } else {
+                    MyApp.setIsWeatherCache(true);
+                }
             }
         });
     }

@@ -7,10 +7,20 @@ import org.litepal.crud.DataSupport;
  */
 
 public class WeatherCache extends DataSupport {
+    private String city;
     private String json;
 
-    public WeatherCache(String json) {
+    public WeatherCache(String city, String json) {
+        this.city = city;
         this.json = json;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getJson() {
@@ -19,5 +29,13 @@ public class WeatherCache extends DataSupport {
 
     public void setJson(String json) {
         this.json = json;
+    }
+
+    @Override
+    public String toString() {
+        return "WeatherCache{" +
+                "city='" + city + '\'' +
+                ", json='" + json + '\'' +
+                '}';
     }
 }
