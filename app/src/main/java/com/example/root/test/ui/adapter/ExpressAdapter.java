@@ -54,17 +54,27 @@ public class ExpressAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) v.getTag();
         }
-        holder.mItemExpTvContent.setText(datas.get(i).getContext());
+        holder.itemExpTvTop.setVisibility(i == 0 ? View.GONE : View.VISIBLE);
+        holder.itemExpTvBottom.setVisibility(i == datas.size() - 1 ? View.INVISIBLE : View.VISIBLE);
+        holder.itemExpTvDate.setText(datas.get(i).getTime().split(" ")[0]);
+        holder.itemExpTvTime.setText(datas.get(i).getTime().split(" ")[1].substring(0, 5));
+        holder.itemExpTvContent.setText(datas.get(i).getContext());
         return v;
     }
 
     class ViewHolder {
-        private ImageView mItemExpIvStatus;
-        private TextView mItemExpTvContent;
+        private TextView itemExpTvTop;
+        private TextView itemExpTvTime;
+        private TextView itemExpTvDate;
+        private TextView itemExpTvBottom;
+        private TextView itemExpTvContent;
 
         public ViewHolder(View v) {
-            mItemExpIvStatus = (ImageView) v.findViewById(R.id.item_exp_iv_status);
-            mItemExpTvContent = (TextView) v.findViewById(R.id.item_exp_tv_content);
+            itemExpTvTop = (TextView) v.findViewById(R.id.item_exp_tv_top);
+            itemExpTvTime = (TextView) v.findViewById(R.id.item_exp_tv_time);
+            itemExpTvDate = (TextView) v.findViewById(R.id.item_exp_tv_date);
+            itemExpTvBottom = (TextView) v.findViewById(R.id.item_exp_tv_bottom);
+            itemExpTvContent = (TextView) v.findViewById(R.id.item_exp_tv_content);
         }
     }
 }
