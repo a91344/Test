@@ -41,7 +41,9 @@
     <ListView
         android:id="@+id/exp_lv_data"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp" />
 
     <com.qmuiteam.qmui.widget.QMUIEmptyView
         android:id="@+id/exp_ev"
