@@ -1,12 +1,11 @@
 package com.example.root.test.presenter;
 
-import android.app.ProgressDialog;
 import android.os.Handler;
 import android.util.Log;
 
 import com.example.root.test.bean.ExpressInfo;
 import com.example.root.test.contract.ExpressContract;
-import com.example.root.test.netWork.HttpRequests;
+import com.example.root.test.network.HttpRequests;
 
 import rx.Subscriber;
 

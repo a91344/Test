@@ -34,4 +34,5 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
 
     compile 'com.qmuiteam:qmui:+'
+    compile 'org.litepal.android:core:1.6.0'
 }

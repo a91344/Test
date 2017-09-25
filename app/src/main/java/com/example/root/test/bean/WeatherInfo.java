@@ -1,12 +1,14 @@
 package com.example.root.test.bean;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/9/4.
  */
 
-public class WeatherInfo {
+public class WeatherInfo{
 
     /**
      * message : Success !
@@ -172,7 +174,7 @@ public class WeatherInfo {
                     '}';
         }
 
-        public static class YesterdayBean extends ForecastBean{
+        public static class YesterdayBean extends ForecastBean {
 
         }
 

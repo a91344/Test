@@ -6,7 +6,9 @@ import android.util.Log;
 import com.example.root.test.MyApp;
 import com.example.root.test.bean.WeatherInfo;
 import com.example.root.test.contract.WeatherContract;
-import com.example.root.test.netWork.HttpRequests;
+import com.example.root.test.db.WeatherCache;
+import com.example.root.test.network.HttpRequests;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +63,7 @@ public class WeatherPresenter implements WeatherContract.Presenter {
                         forecast.addAll(weatherInfo.getData().getForecast());
                         weatherContractView.showWeather(forecast);
                         weatherContractView.showCurrentWeather(weatherInfo.getData());
+                        new WeatherCache(new Gson().toJson(weatherInfo)).save();
                     }
                 }, 1000);
             }

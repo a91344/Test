@@ -1,7 +1,6 @@
-package com.example.root.test.netWork;
+package com.example.root.test.network;
 
 import com.example.root.test.bean.ExpressInfo;
-import com.example.root.test.bean.CityInfo;
 import com.example.root.test.bean.LocationInfo;
 import com.example.root.test.bean.MusicInfo;
 import com.example.root.test.bean.WeatherInfo;

@@ -5,11 +5,13 @@ import android.content.Context;
 
 import com.example.root.test.utils.LocationUtils;
 
+import org.litepal.LitePalApplication;
+
 /**
  * Created by Administrator on 2017/9/4.
  */
 
-public class MyApp extends Application {
+public class MyApp extends LitePalApplication {
     private static Context mContext;
     private static String city = "北京";
 
