@@ -1,0 +1,40 @@
+# This workflow will build a Java project with Gradle
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: Build with Gradle
+      run: ./gradlew aR
+    - name: upload apk
+      uses: actions/upload-artifact@v2
+      with:
+        name: 正式版.zip
+        path: proXzwds/build/outputs/apk/release/proXzwds-release.apk
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        asset_path: proXzwds/build/outputs/apk/release/proXzwds-release.apk
+        asset_name: ${{ github.ref }}.tar.gz
+        asset_content_type: application/gzip
